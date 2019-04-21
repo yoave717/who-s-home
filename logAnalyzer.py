@@ -34,6 +34,7 @@ with open(CLIENT_LIST_FILE_NAME) as json_file:
 
 
 def main():
+    print('main')
     try:
         mp.set_start_method('spawn')
         createStatusList()
@@ -56,7 +57,9 @@ def main():
 
 def analyze(line):
     if line:
+        print("line")
         if line.find(DEVICE_CONNECTED_KEYWORD) != -1:
+            print("new device")
             #new device connected
             isSignificantDevice(line)
 

@@ -6,7 +6,7 @@
 ## There are a few configuration parameters.
 
 LOG_FILE = 'syslog.log'
-HOST, PORT = "192.168.0.185", 6785
+HOST, PORT = "192.168.0.151", 6785
 
 #
 # NO USER SERVICEABLE PARTS BELOW HERE...
@@ -20,13 +20,15 @@ logging.basicConfig(level=logging.INFO, format='%(message)s', datefmt='', filena
 class SyslogUDPHandler(socketserver.BaseRequestHandler):
 
 	def handle(self):
+		print('handle')
 		data = bytes.decode(self.request[0].strip())
 		socket = self.request[1]
 		print( "%s : " % self.client_address[0], str(data))
 		logging.info(str(data))
 
 def runLogServer():
-		server = socketserver.UDPServer((HOST,PORT), SyslogUDPHandler)
-		server.serve_forever(poll_interval=0.5)
+	print('server start')
+	server = socketserver.UDPServer((HOST,PORT), SyslogUDPHandler)
+	server.serve_forever(poll_interval=1)
 
 
