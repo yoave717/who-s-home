@@ -1,50 +1,38 @@
 {
-    "Clients": {
-        "Yoav": {
-            "DevicesMacAddress": {
-                "Phone": "64:a2:f9:f1:a0:16",
-                "Laptop": "3c:15:c2:cd:29:16",
-                "PC": "",
-                "alt1": "",
-                "alt2": ""
-            }
-        },
-        "Omri": {
-            "DevicesMacAddress": {
-                "Phone": "24:18:1d:83:4b:11",
-                "Laptop": "",
-                "PC": "",
-                "alt1": "",
-                "alt2": ""
-            }
-        },
-        "Gilad": {
-            "DevicesMacAddress": {
-                "Phone": "70:ec:e4:4f:8a:17",
-                "Laptop": "64:5d:86:93:15:52",
-                "PC": "",
-                "alt1": "64:b5:c6:52:dd:5f",
-                "alt2": ""
-            }
-        },
-        "Dafna": {
-            "DevicesMacAddress": {
-                "Phone": "74:9e:af:45:d9:d2",
-                "Laptop": "9c:da:3e:68:b7:58",
-                "PC": "",
-                "alt1": "",
-                "alt2": ""
-            }
-        },
-        "Ronny": {
-            "DevicesMacAddress": {
-                "Phone": "24:18:1d:51:8a:ee",
-                "Laptop": "34:36:3b:85:8c:e2",
-                "PC": "",
-                "alt1": "",
-                "alt2": ""
-            }
-        }
-
+    "Yoav": {
+        "Phone": "64:a2:f9:f1:a0:16",
+        "Laptop": "3c:15:c2:cd:29:16",
+        "PC": "",
+        "alt1": "",
+        "alt2": ""
+    },
+    "Omri": {
+        "Phone": "24:18:1d:83:4b:11",
+        "Laptop": "",
+        "PC": "",
+        "alt1": "",
+        "alt2": ""
+    },
+    "Gilad": {
+        "Phone": "70:ec:e4:4f:8a:17",
+        "Laptop": "64:5d:86:93:15:52",
+        "PC": "",
+        "alt1": "64:b5:c6:52:dd:5f",
+        "alt2": ""
+    },
+    "Dafna": {
+        "Phone": "74:9e:af:45:d9:d2",
+        "Laptop": "9c:da:3e:68:b7:58",
+        "PC": "",
+        "alt1": "",
+        "alt2": ""
+    },
+    "Ronny": {
+        "Phone": "24:18:1d:51:8a:ee",
+        "Laptop": "34:36:3b:85:8c:e2",
+        "PC": "",
+        "alt1": "",
+        "alt2": ""
     }
+
 }
