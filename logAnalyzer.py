@@ -137,7 +137,7 @@ def createStatusList():
         SIGNIFICANT_CLIENT_STATUS_LIST[client] = {LOCATION: LOCATION_NOT_HOME,
                                                     TIME_STAMP: dt.now(),
                                                     DEVICES: {}}
-        for device, macAdd in SIGNIFICANT_CLIENT_LIST[client].items():
+        for device, macAdd in SIGNIFICANT_CLIENT_LIST[client][DEVICES].items():
             if macAdd:
                 d = {
                     LOCATION: LOCATION_NOT_HOME,
