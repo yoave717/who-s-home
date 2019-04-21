@@ -6,7 +6,7 @@
 ## There are a few configuration parameters.
 
 LOG_FILE = 'syslog.log'
-HOST, PORT = "192.168.0.185", 6786
+HOST, PORT = "192.168.0.151", 6785
 
 #
 # NO USER SERVICEABLE PARTS BELOW HERE...
