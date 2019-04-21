@@ -4,14 +4,16 @@
         "Laptop": "3c:15:c2:cd:29:16",
         "PC": "",
         "alt1": "",
-        "alt2": ""
+        "alt2": "",
+        "mail": "yoave717@gmail.com"
     },
     "Omri": {
         "Phone": "24:18:1d:83:4b:11",
         "Laptop": "",
         "PC": "",
         "alt1": "",
-        "alt2": ""
+        "alt2": "",
+        "mail": ""
     },
     "Gilad": {
         "Phone": "70:ec:e4:4f:8a:17",
@@ -32,7 +34,8 @@
         "Laptop": "34:36:3b:85:8c:e2",
         "PC": "",
         "alt1": "",
-        "alt2": ""
+        "alt2": "",
+        "mail": "ronny@claro.co.il"
     }
 
 }
