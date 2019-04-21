@@ -1,6 +1,7 @@
 import datetime
 import json
 import os
+from mailServer import sendEmail 
 import multiprocessing as mp
 from multiprocessing import Process
 from SyslogServer import runLogServer
@@ -17,6 +18,7 @@ MAC = "macAddress"
 TIME_STAMP = "timeStamp"
 DEVICES = "devices"
 PHONE_DEVICE = "Phone"
+MAIL = "mail"
 DEVICE_CONNECTED_KEYWORD = " authenticated"
 CLIENT_LIST_FILE_NAME = "SIGNIFICANT_CLIENT_LIST.json"
 
@@ -58,7 +60,6 @@ def main():
 
 def analyze(line):
     if line:
-        print("line")
         if line.find(DEVICE_CONNECTED_KEYWORD) != -1:
             print("new device")
             #new device connected
@@ -66,7 +67,12 @@ def analyze(line):
             if client:
                 #is significant client
                 refreshClientStatusList()
-
+                if  not lastSeen(client, 1200):
+                    #client wasnt home for the last 20 min
+                    #send client email containg whos home
+                    if SIGNIFICANT_CLIENT_LIST[client][MAIL]:
+                        body = clientListToString(client)
+                        sendEmail(SIGNIFICANT_CLIENT_LIST[client][MAIL], body)
 
 def getLocation(line):
     for nodeName, location in NODE_LOCATION.items():
@@ -80,7 +86,7 @@ def getLocation(line):
 def isSignificantDevice(line):
     macAddress = line[(len(line) - 1 - (LENGTH_FROM_MAC_ADDRESS_TO_END_OF_LINE + MAC_ADDRESS_LENGTH)): (len(line) - 1 - LENGTH_FROM_MAC_ADDRESS_TO_END_OF_LINE)]
     for client in SIGNIFICANT_CLIENT_LIST:
-        for device, macAdd in SIGNIFICANT_CLIENT_LIST[client].items():
+        for device, macAdd in SIGNIFICANT_CLIENT_LIST[client][DEVICES].items():
             if macAdd == macAddress:
                 #significant device connected
                 updateDeviceLocation(client, device, getLocation(line))
@@ -105,12 +111,11 @@ def getDeviceIPv4Address(macAddress):
     return None
 
 
-
 def refreshClientStatusList():
     for client in SIGNIFICANT_CLIENT_STATUS_LIST:
         if SIGNIFICANT_CLIENT_STATUS_LIST[client][LOCATION] != LOCATION_NOT_HOME:
             #client should be home -> checking
-            if dt.now() - SIGNIFICANT_CLIENT_STATUS_LIST[client][TIME_STAMP] > datetime.timedelta(seconds=30):
+            if lastSeen(client, 30):
                 deviceIpv4 = getDeviceIPv4Address(SIGNIFICANT_CLIENT_STATUS_LIST[client][DEVICES][PHONE_DEVICE][MAC])
                 #if ipv4 address was found, client is alive 
                 if deviceIpv4 == None:
@@ -128,8 +133,22 @@ def updateDeviceLocation(client, device, location):
 
 
 
-
+def clientListToString(toClient = None):
+    msg = ""
+    for client in SIGNIFICANT_CLIENT_STATUS_LIST:
+        if client == toClient: continue
+        if SIGNIFICANT_CLIENT_STATUS_LIST[client][LOCATION] != LOCATION_NOT_HOME:
+            msg += "\n" + client +" is in the " + SIGNIFICANT_CLIENT_STATUS_LIST[client][LOCATION] + "\n"
+    if msg == "":
+        #no one home
+        msg = "\nYou're home alone!\n"
+    return msg
     
+#returns true if client was last seen in the given time interval
+#interval must be seconds
+def lastSeen(client, interval):
+    return dt.now() - SIGNIFICANT_CLIENT_STATUS_LIST[client][TIME_STAMP] > datetime.timedelta(seconds=interval)
+
 
 #intilizeing significant clients status list based on provided client list file
 def createStatusList():
